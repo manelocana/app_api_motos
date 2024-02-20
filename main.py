@@ -17,7 +17,8 @@ app = FastAPI(tittle="fastapi_motos",
 
 @app.get("/")
 async def get():
-    return "primer: get"
+    return "get"
+    
 
 @app.get("/motos")
 async def get():
