@@ -4,23 +4,16 @@
 # usamos sql como db. hacemos la conexion con sqlalchemy
 
 
-
+#  importamos
 from fastapi import FastAPI
-from routers import motos
+from routers.motos import motos
 
 
-
+# iniciamos fastapi
 app = FastAPI(tittle="fastapi_motos", 
               description="moto_collection", 
               version="1.0.1")
 
+app.include_router(motos)
 
-@app.get("/")
-async def get():
-    return "get"
-    
-
-@app.get("/motos")
-async def get():
-    return "get en motos"
 
