@@ -3,7 +3,7 @@
 
 # importamos
 from sqlalchemy import create_engine, MetaData
-from passw import passw
+from config.passw import passw
 
 # creamos el motor para la conexion con la db usando createengine
 engine = create_engine(f"mysql+pymysql://root:{passw}@localhost:3306/app_api_motos")

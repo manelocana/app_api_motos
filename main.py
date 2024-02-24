@@ -6,7 +6,7 @@
 
 #  importamos
 from fastapi import FastAPI
-from routers.motos import motos
+from routers.motos import motos_router
 
 
 # iniciamos fastapi
@@ -14,6 +14,6 @@ app = FastAPI(tittle="fastapi_motos",
               description="moto_collection", 
               version="1.0.1")
 
-app.include_router(motos)
+app.include_router(motos_router)
 
 

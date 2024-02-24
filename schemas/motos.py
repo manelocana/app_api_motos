@@ -5,6 +5,20 @@ from pydantic import BaseModel
 from typing import Optional
 
 # cramos la clase, con BaseModel, para la estructura
+
+class Moto(BaseModel):
+    id : Optional[str]
+    marca: str
+    modelo: str
+    cilindrada: str
+    año: str
+    peso: str
+
+
+
+
+
+'''
 class Moto(BaseModel):
     def __init__(self):
         self.id: Optional[str]
@@ -13,7 +27,7 @@ class Moto(BaseModel):
         self.cilindrada: int
         self.año: int
         self.peso: int
-
+'''
 
 '''
 class Motos(Moto):
