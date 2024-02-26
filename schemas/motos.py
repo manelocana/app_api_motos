@@ -15,9 +15,6 @@ class Moto(BaseModel):
     peso: str
 
 
-
-
-
 '''
 class Moto(BaseModel):
     def __init__(self):

@@ -3,8 +3,11 @@
 # importamos
 from fastapi import APIRouter
 from config.db import conn
-from models.motos import motos
+from models.motos import motosbd
 from schemas.motos import Moto
+from starlette.status import HTTP_204_NO_CONTENT
+
+
 
 motos_router = APIRouter()
 
@@ -13,32 +16,35 @@ async def hola():
     return 'Welcome to the collection of my favorite motorcycles'
 
 
-@motos_router.get('/motos2')
+# funciona ok, pero no devuelve un json...
+@motos_router.get("/motos")
 async def get_motos():
-    getmoto = conn.execute(motos.select())
-    return getmoto
-
-@motos_router.get('/motos1')
-async def get_motos():
-    return conn.execute(motos.select()).fetchall()
-
-@motos_router.get("/motos3")
-async def get_motos():
-    result = conn.execute(motos_router.select())
-    conn.commit()
-    return result
+    result = conn.execute(motosbd.select()).fetchall()
+    return str(result)
 
 
 
+@motos_router.get("/motos/{id}")
+async def get_motillo(id: str):
+    result = conn.execute(motosbd.select().where(motosbd.c.id == id))
+    return str(result)
+    
+
+
+
+# añadir, funciona OK
 @motos_router.post('/motos')
 async def create_moto(moto: Moto):
     new_moto = {'marca':moto.marca, 'modelo': moto.modelo, 'cilindrada': moto.cilindrada, 'año': moto.año, 'peso':moto.peso}
-    print(new_moto)
-    result = conn.execute(motos.insert().values(new_moto))
+    result = conn.execute(motosbd.insert().values(new_moto))
     conn.commit()
-    print(result)
-    return moto.id, new_moto
+    return result.lastrowid, new_moto
 
-
+# borrar, funciona OK
+@motos_router.delete("/motos/{id}")
+async def delete_moto(id: str):
+    conn.execute(motosbd.delete().where(motosbd.c.id == id))
+    conn.commit()
+    return conn(status_code=HTTP_204_NO_CONTENT)
 
 
