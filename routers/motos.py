@@ -9,21 +9,27 @@ from starlette.status import HTTP_204_NO_CONTENT
 
 
 
+
+
 motos_router = APIRouter()
 
+
+# funciona ok
 @motos_router.get('/')
 async def hola():
-    return 'Welcome to the collection of my favorite motorcycles'
+    return {'Welcome to the collection' : 'my favorite motorcycles'}
 
 
-# funciona ok, pero no devuelve un json...
+# no devuelve un json...
 @motos_router.get("/motos")
 async def get_motos():
-    result = conn.execute(motosbd.select()).fetchall()
-    return str(result)
+    cursor = conn.execute(motosbd.select())
+    cursor.fetchall()
+    return cursor
 
+ 
 
-
+# me returna el obj de conexion, no el get json
 @motos_router.get("/motos/{id}")
 async def get_motillo(id: str):
     result = conn.execute(motosbd.select().where(motosbd.c.id == id))
@@ -45,6 +51,7 @@ async def create_moto(moto: Moto):
 async def delete_moto(id: str):
     conn.execute(motosbd.delete().where(motosbd.c.id == id))
     conn.commit()
-    return conn(status_code=HTTP_204_NO_CONTENT)
+    return  'id delete', id
 
-
+   #  if id != motosbd:
+    #    print()
