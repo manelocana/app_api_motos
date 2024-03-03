@@ -14,7 +14,7 @@ motos_router = APIRouter()
 @motos_router.get('/')
 async def hola():
     return {'Welcome to the collection' : 'my favorite motorcycles'}
-
+  
 # funciona ok
 @motos_router.get("/motos")
 async def get_motos():
