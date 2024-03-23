@@ -13,8 +13,11 @@ motos_router = APIRouter()
 # funciona ok
 @motos_router.get('/')
 async def hola():
-    return {'Welcome to the collection' : 'my favorite motorcycles'}
-  
+    try:
+        return {'Welcome to the collection' : 'my favorite motorcycles'}
+    except Exception as e:
+        raise
+    
 # funciona ok
 @motos_router.get("/motos")
 async def get_motos():
@@ -32,7 +35,8 @@ async def get_motos():
 async def get_motillo(id: str):
     try:
         result = conn.execute(motosbd.select().where(motosbd.c.id == id)).fetchone()
-        return dict(zip(id, result))
+        resultdict = dict(zip(id, result))
+        return {'moto': resultdict}
     except Exception as e:
         if result is None:
             raise HTTPException(status_code=404, detail='no existe')
