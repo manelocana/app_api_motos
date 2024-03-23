@@ -27,11 +27,11 @@ class Database:
 
         try:
             self.cursor.execute(sql)
-            user = self.cursor.fetchone()
+            moto = self.cursor.fetchone()
 
-            print('Id: ', user[0])
-            print('Marca: ', user[1])
-            print('Modelo: ', user[2])
+            return{'Id': moto[0],
+                   'Marca': moto[1],
+                   'Modelo': moto[2]}
         except Exception as e:
             raise
 
@@ -41,12 +41,12 @@ class Database:
 
         try:
             self.cursor.execute(sql)
-            users = self.cursor.fetchall()
+            motos = self.cursor.fetchall()
 
-            for user in users:
-                print('Id: ', user[0])
-                print('Marca: ', user[1])
-                print('Modelo: ', user[2])
+            for moto in motos:
+                print('Id: ', moto[0])
+                print('Marca: ', moto[1])
+                print('Modelo: ', moto[2])
                 print('________\n')
         except Exception as e:
             raise
