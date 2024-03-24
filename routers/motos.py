@@ -7,6 +7,8 @@ from models.motos import motosbd
 from schemas.motos import Moto
 
 
+
+
 motos_router = APIRouter()
 
 
@@ -17,7 +19,7 @@ async def hola():
         return {'Welcome to the collection' : 'my favorite motorcycles'}
     except Exception as e:
         raise
-    
+
 # funciona ok
 @motos_router.get("/motos")
 async def get_motos():
@@ -30,18 +32,31 @@ async def get_motos():
     except Exception as e:
         raise
 
+'''
 # no me da la moto completa, solo la id
 @motos_router.get("/motos/{id}")
 async def get_motillo(id: str):
     try:
         result = conn.execute(motosbd.select().where(motosbd.c.id == id)).fetchone()
-        resultdict = dict(zip(id, result))
-        return {'moto': resultdict}
+        #resultdict = dict(zip(id, result))
+        return dict(zip(result.keys(), result))
+        #return {'moto': resultdict}
     except Exception as e:
         if result is None:
             raise HTTPException(status_code=404, detail='no existe')
                 # con zip unimos los dos elementos
-    
+'''
+
+@motos_router.get("/motos/{id}")
+async def get_motillo(id: str):
+    try:
+        result = conn.execute(motosbd.select().where(motosbd.c.id == id)).fetchone()
+        column_names = [column.name for column in motosbd.columns]
+        return dict(zip(column_names, result))
+    except Exception as e:
+        if result is None:
+            raise HTTPException(status_code=404, detail='Moto no encontrada')
+
     
 # añadir, funciona OK
 @motos_router.post('/motos')
