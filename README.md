@@ -1,7 +1,21 @@
-Projet API, pour les motos que j'aime.
-J'utiliserai Python comme langage, je créerai l'API avec Fastapi et j'utiliserai Mysql comme base de données.
+Projet API, 
 
-Grace a Fastapi, on a le documentation d'utilisation en feisant /docs
+Python comme langage,
+Fastapi pour la creation de l'API,
+MySQL comme base de données,
+Pour me connecter à MySQL, je vais utiliser SqlAlchemy
 
-Pour me connecter à MySQL, je vais utiliser sqlalchemy
 
+Ques'que je besoins pour tester le code? 
+- Dans le module 'requirements.txt' on a tout a installer
+
+Où je puis voir la documentation?
+- Sur l'API, dans le path on ecris '/docs'
+
+
+Le module principal c'est 'main.py' je l'ai appart, pour demarrer le server
+Je separé les modules en diferents dossiers, pour milleur estructurer le projet (j'ai utilisé une estructure standard):
+- config (conexion a la base de donnés)
+- models (definition de model/style de tables)
+- routers (functions, demandes http) 
+- schemas (gerer le tipus de donnés)
