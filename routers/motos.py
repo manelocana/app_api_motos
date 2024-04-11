@@ -30,7 +30,6 @@ async def get_motos():
     except Exception as e:
         raise HTTPException(status_code=500, detail='error al conectar con el servidor')
 
-
 # busqueda de motobd por id
 @motos_router.get('/motos/{id}')
 async def get_motillo(id: str):
@@ -49,14 +48,14 @@ async def get_motillo(id: str):
 # MECAGOENSUPUTAMADRE, QUE MIERDA PASA QUE NO FUNCIONA
 @motos_router.post('/motos')
 async def create_moto(motosbd: Moto):
-    try:
-        # new_moto = {'marca':motosbd.marca, 'modelo': motosbd.modelo, 'cilindrada': motosbd.cilindrada, 'año': motosbd.año, 'peso':motosbd.peso}
-        new_moto = Moto
-        result = conn.execute(motosbd.insert().values(new_moto))
-        conn.commit()
-        return result.lastrowid, new_moto
-    except Exception as e:
-        raise HTTPException(status_code=444, detail='motobd no creada')
+    #try:
+    new_moto = {'marca':motosbd.marca, 'modelo': motosbd.modelo, 'cilindrada': motosbd.cilindrada, 'año': motosbd.año, 'peso':motosbd.peso}
+    #new_moto = Moto
+    result = conn.execute(motosbd.insert().values(new_moto))
+    result.commit()
+    return result.lastrowid, new_moto
+    #except Exception as e:
+    #    raise HTTPException(status_code=444, detail='motobd no creada')
     
 
 
