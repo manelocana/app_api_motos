@@ -25,6 +25,7 @@ async def get_motos():
         cursor = conn.execute(motosbd.select()).fetchall()
         column_names = [column.name for column in motosbd.columns]
         # convertimos las filas a dict, usando los nombres d las columnas
+        # y zip para unirlas
         motos_list = [dict(zip(column_names, row)) for row in cursor]
         return {'motos list':motos_list}
     except Exception as e:
@@ -52,7 +53,7 @@ async def create_moto(motosbd: Moto):
     new_moto = {'marca':motosbd.marca, 'modelo': motosbd.modelo, 'cilindrada': motosbd.cilindrada, 'año': motosbd.año, 'peso':motosbd.peso}
     #new_moto = Moto
     result = conn.execute(motosbd.insert().values(new_moto))
-    result.commit()
+    conn.commit()
     return result.lastrowid, new_moto
     #except Exception as e:
     #    raise HTTPException(status_code=444, detail='motobd no creada')
