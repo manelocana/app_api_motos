@@ -44,21 +44,19 @@ async def get_motillo(id: str):
             raise HTTPException(status_code=404, detail='Moto no encontrada')
 
 
-
-
 # MECAGOENSUPUTAMADRE, QUE MIERDA PASA QUE NO FUNCIONA
-@motos_router.post('/motos')
+@motos_router.post('/motos') 
 async def create_moto(motosbd: Moto):
     #try:
     new_moto = {'marca':motosbd.marca, 'modelo': motosbd.modelo, 'cilindrada': motosbd.cilindrada, 'año': motosbd.año, 'peso':motosbd.peso}
     #new_moto = Moto
-    result = conn.execute(motosbd.insert().values(new_moto))
+    result = conn.execute(motosbd.select().insert().values(new_moto))
     conn.commit()
     return result.lastrowid, new_moto
     #except Exception as e:
     #    raise HTTPException(status_code=444, detail='motobd no creada')
     
-
+ 
 
 
 # modificar
