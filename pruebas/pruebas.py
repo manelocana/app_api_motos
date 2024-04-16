@@ -24,7 +24,6 @@ class Database:
 
     def select_moto(self, id):
         sql = 'SELECT id, marca, modelo FROM motos1  WHERE id = {}'.format(id)
-
         try:
             self.cursor.execute(sql)
             moto = self.cursor.fetchone()
@@ -35,14 +34,11 @@ class Database:
         except Exception as e:
             raise
 
-    
     def select_all_motos(self):
         sql = 'SELECT * FROM motos1'
-
         try:
             self.cursor.execute(sql)
             motos = self.cursor.fetchall()
-
             for moto in motos:
                 print('Id: ', moto[0])
                 print('Marca: ', moto[1])
@@ -54,18 +50,14 @@ class Database:
 
     def update_moto(self, id, modelo):
         sql = "UPDATE motos1 SET modelo='{}' WHERE id = '{}'".format(modelo, id)
-
         try:
             self.cursor.execute(sql)
             self.connection.commit()
         except Exception as e:
             raise
 
-
     def close(self):
         self.connection.close()
-
-
 
 database = Database()
 
