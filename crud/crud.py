@@ -13,21 +13,19 @@ def fun_hola():
     except Exception as e:
         raise HTTPException(status_code=402, detail='error')
 
+
 # crear moto, sigue batallando haha
 def nueva_moto(moto:Moto):
     try:
         new_moto = {'marca':moto.marca, 'modelo': moto.modelo, 'cilindrada': moto.cilindrada, 'año': moto.año, 'peso':moto.peso}
-        new_moto = Moto
+        #new_moto = moto
         result = conn.execute(motosbd.insert().values(new_moto))
         conn.commit()
-        return result.lastrowid, new_moto
+        return result
     except Exception as e:
         raise HTTPException(status_code=444, detail='motobd no creada')
     
 
-
-
-    
 # ver motos, get
 def see_motos():
     try:
@@ -55,7 +53,8 @@ def borrar_moto(id:str):
         result = conn.execute(motosbd.select().where(motosbd.c.id == id)).fetchone()
         # obtenemos los nombres de las tablas
         column_names = [column.name for column in motosbd.columns]
-        return dict(zip(column_names, result))    
+        resultado = dict(zip(column_names, result))
+        return {'delete' : resultado}
         resultdel = conn.execute(motosbd.delete().where(motosbd.c.id == id))
         conn.commit()
         return  {'id delete': id}

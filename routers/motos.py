@@ -1,11 +1,9 @@
-# en routes las funciones o peticiones http
+# en routes las peticiones http
 
 # importamos
-from fastapi import APIRouter, HTTPException
-from config.db import conn
-from models.motos import motosbd
+from fastapi import APIRouter
 from schemas.motos import Moto
-from crud.crud import see_motos, find_moto, borrar_moto, fun_hola, actualizar_moto
+from crud.crud import see_motos, find_moto, borrar_moto, fun_hola, actualizar_moto, nueva_moto
 
 
 
@@ -33,17 +31,14 @@ async def get_motillo(id: str):
 
 # MECAGOENSUPUTAMADRE, QUE MIERDA PASA QUE NO FUNCIONA
 @motos_router.post('/motos') 
-async def create_moto():
-    #return nueva_moto(moto:Moto)
-    pass
+async def create_moto(moto:Moto):
+    return nueva_moto(moto)
+    
    
- 
 # modificar
 @motos_router.put('/motos')
 async def update_moto(id:str):
-    actualizar_moto(id)
-
-    pass
+    return actualizar_moto(id)
 
 
 # borrar
