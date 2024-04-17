@@ -17,5 +17,6 @@ Le module principal c'est 'main.py' je l'ai appart, pour demarrer le server
 Je separé les modules en diferents dossiers, pour milleur estructurer le projet (j'ai utilisé une estructure standard):
 - config (conexion a la base de donnés)
 - models (definition de model/style de tables)
-- routers (functions, demandes http) 
+- routers (demandes http)
+- crud (les fonctions) 
 - schemas (gerer le tipus de donnés)
