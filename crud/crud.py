@@ -17,8 +17,8 @@ def fun_hola():
 # crear moto, sigue batallando haha
 def nueva_moto(moto:Moto):
     try:
-        new_moto = {'marca':moto.marca, 'modelo': moto.modelo, 'cilindrada': moto.cilindrada, 'año': moto.año, 'peso':moto.peso}
-        #new_moto = moto
+        #new_moto = {'marca':moto.marca, 'modelo': moto.modelo, 'cilindrada': moto.cilindrada, 'año': moto.año, 'peso':moto.peso}
+        new_moto = moto
         result = conn.execute(motosbd.insert().values(new_moto))
         conn.commit()
         return result
@@ -67,9 +67,10 @@ def borrar_moto(id:str):
 # actualizar moto
 
 def actualizar_moto(self, id, modelo):
-    sql = "UPDATE motos1 SET modelo='{}' WHERE id = '{}'".format(modelo, id)
     try:
+        result = conn.execute(motosbd.select().where(motosbd.c.id==id))
+
         self.cursor.execute(sql)
         self.connection.commit()
     except Exception as e:
-        raise
+        raise HTTPException(status_code=444, detail='no se ha creado la motillo')
