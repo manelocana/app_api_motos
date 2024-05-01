@@ -18,9 +18,7 @@ def fun_hola():
         raise HTTPException(status_code=402, detail='error')
 
 
-# crear moto, sigue batallando haha
-
-
+# crear nueva moto
 def nueva_moto(moto:Moto):
     try:
         new_moto = {'marca':moto.marca, 
@@ -28,9 +26,9 @@ def nueva_moto(moto:Moto):
                     'cilindrada': moto.cilindrada, 
                     'año': moto.año, 
                     'peso':moto.peso}
-        result = conn.execute(motosbd.insert().values(new_moto))
+        cursor = conn.execute(motosbd.insert().values(new_moto))
         conn.commit()
-        return result
+        return new_moto, cursor
     except Exception as e:
         raise #HTTPException(status_code=444, detail='motobd no creada')
 
@@ -49,12 +47,12 @@ def see_motos():
 # ver una moto por id
 def find_moto(id: str):
     try:
-        result = conn.execute(motosbd.select().where(motosbd.c.id == id)).fetchone()
+        cursor = conn.execute(motosbd.select().where(motosbd.c.id == id)).fetchone()
         # obtenemos los nombres de las tablas
         column_names = [column.name for column in motosbd.columns]
-        return dict(zip(column_names, result))
+        return dict(zip(column_names, cursor))
     except Exception as e:
-        if result is None:
+        if cursor is None:
             raise HTTPException(status_code=404, detail='Moto no encontrada')
 
 
@@ -66,13 +64,9 @@ def borrar_moto(id:str):
         column_names = [column.name for column in motosbd.columns]
         resultado = dict(zip(column_names, result))
         return {'delete' : resultado}
-        resultdel = conn.execute(motosbd.delete().where(motosbd.c.id == id))
-        conn.commit()
-        return  {'id delete': id}
     except Exception as e:
         if result is None:
             raise HTTPException(status_code=404, detail='no puedes borrarla si no existe')
-# INTENTANDO QUE ME DEVUELVA EL OBJETO COMPLETO, NO SOLO LA QUERY QUE LE PIDO
 
 
 # actualizar moto
