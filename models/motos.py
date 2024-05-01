@@ -6,7 +6,7 @@ from sqlalchemy.sql.sqltypes import String
 
 
 # creamos la tabla 
-motosbd = Table('motos1', meta, Column('id', String,  autoincrement=True, primary_key=True), 
+motosbd = Table('motos1', meta, Column('id', String, primary_key=True, nullable=True), 
               Column('marca', String(255)),
               Column('modelo', String(255)), 
               Column('cilindrada', String(255)), 

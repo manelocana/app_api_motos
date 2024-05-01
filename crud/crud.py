@@ -1,8 +1,12 @@
 # aqui voy a separar las funciones de las peticiones, para hacerlo mas facil de leer
 
+
+# aqui un crud core, directamente a la base datos sin usar orm
+
+
 from fastapi import HTTPException
 from schemas.motos import Moto
-from config.db import conn, session
+from config.db import conn
 from models.motos import motosbd
 
 
@@ -16,35 +20,19 @@ def fun_hola():
 
 # crear moto, sigue batallando haha
 
-'''
+
 def nueva_moto(moto:Moto):
     try:
-        #new_moto = {'marca':moto.marca, 'modelo': moto.modelo, 'cilindrada': moto.cilindrada, 'año': moto.año, 'peso':moto.peso}
-        new_moto = moto.model_dump()
+        new_moto = {'marca':moto.marca, 
+                    'modelo': moto.modelo, 
+                    'cilindrada': moto.cilindrada, 
+                    'año': moto.año, 
+                    'peso':moto.peso}
         result = conn.execute(motosbd.insert().values(new_moto))
         conn.commit()
         return result
     except Exception as e:
         raise #HTTPException(status_code=444, detail='motobd no creada')
-'''
-
-def nueva_moto(moto: Moto):
-    sesion = session
-    try:
-
-        sesion.add(moto)
-        sesion.commit()
-    except Exception as e:
-        sesion.rollback()
-        raise #HTTPException(status_code=444, detail='error ...')
-    finally:
-        sesion.close()
-    return moto
-
-
-
-
-
 
 
 # ver motos, get
@@ -57,6 +45,7 @@ def see_motos():
     except Exception as e:
         raise HTTPException(status_code=500, detail='error al conectar con el servidor')
 
+
 # ver una moto por id
 def find_moto(id: str):
     try:
@@ -67,6 +56,7 @@ def find_moto(id: str):
     except Exception as e:
         if result is None:
             raise HTTPException(status_code=404, detail='Moto no encontrada')
+
 
 # borrar 
 def borrar_moto(id:str):
@@ -86,7 +76,7 @@ def borrar_moto(id:str):
 
 
 # actualizar moto
-
+'''
 def actualizar_moto(self, id, modelo):
     try:
         result = conn.execute(motosbd.select().where(motosbd.c.id==id))
@@ -95,3 +85,4 @@ def actualizar_moto(self, id, modelo):
         self.connection.commit()
     except Exception as e:
         raise HTTPException(status_code=444, detail='no se ha creado la motillo')
+'''
