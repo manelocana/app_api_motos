@@ -2,7 +2,7 @@
 
 from fastapi import HTTPException
 from schemas.motos import Moto
-from config.db import conn
+from config.db import conn, session
 from models.motos import motosbd
 
 
@@ -15,16 +15,37 @@ def fun_hola():
 
 
 # crear moto, sigue batallando haha
+
+'''
 def nueva_moto(moto:Moto):
     try:
         #new_moto = {'marca':moto.marca, 'modelo': moto.modelo, 'cilindrada': moto.cilindrada, 'año': moto.año, 'peso':moto.peso}
-        new_moto = moto
+        new_moto = moto.model_dump()
         result = conn.execute(motosbd.insert().values(new_moto))
         conn.commit()
         return result
     except Exception as e:
-        raise HTTPException(status_code=444, detail='motobd no creada')
-    
+        raise #HTTPException(status_code=444, detail='motobd no creada')
+'''
+
+def nueva_moto(moto: Moto):
+    sesion = session
+    try:
+
+        sesion.add(moto)
+        sesion.commit()
+    except Exception as e:
+        sesion.rollback()
+        raise #HTTPException(status_code=444, detail='error ...')
+    finally:
+        sesion.close()
+    return moto
+
+
+
+
+
+
 
 # ver motos, get
 def see_motos():
