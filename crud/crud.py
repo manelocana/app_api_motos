@@ -70,13 +70,17 @@ def borrar_moto(id:str):
 
 
 # actualizar moto
-'''
-def actualizar_moto(self, id, modelo):
-    try:
-        result = conn.execute(motosbd.select().where(motosbd.c.id==id))
 
-        self.cursor.execute(sql)
-        self.connection.commit()
+def actualizar_moto(id:str, datos_actualizados: dict):
+    try:
+        cursor = conn.execute(motosbd.select().where(motosbd.c.id==id))
+        moto_existente = cursor.fetchone()
+        if moto_existente:
+            for clave, valor in datos_actualizados.items():
+                setattr(moto_existente, clave, valor)
+            conn.execute(motosbd.update().where(motosbd.c.id==id).values(datos_actualizados))    
+            conn.commit()
+        else:
+            raise HTTPException(status_code=404, detail='la moto no existe')
     except Exception as e:
-        raise HTTPException(status_code=444, detail='no se ha creado la motillo')
-'''
+        raise

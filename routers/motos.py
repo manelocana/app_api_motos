@@ -3,7 +3,7 @@
 # importamos
 from fastapi import APIRouter
 from schemas.motos import Moto
-from crud.crud import see_motos, find_moto, borrar_moto, fun_hola, nueva_moto
+from crud.crud import see_motos, find_moto, borrar_moto, fun_hola, nueva_moto, actualizar_moto
 
 
 
@@ -29,18 +29,17 @@ async def get_motillo(id: str):
     return find_moto(id)
     
 
-# MECAGOENSUPUTAMADRE, QUE MIERDA PASA QUE NO FUNCIONA
+# insertar 
 @motos_router.post('/motos') 
 async def create_moto(moto:Moto):
     return nueva_moto(moto)
     
-
-'''    
+   
 # modificar
 @motos_router.put('/motos')
 async def update_moto(id:str):
     return actualizar_moto(id)
-'''
+
 
 # borrar
 @motos_router.delete('/motos/{id}')
