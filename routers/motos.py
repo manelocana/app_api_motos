@@ -36,8 +36,8 @@ async def create_moto(moto:Moto):
     
    
 # modificar
-@motos_router.put('/motos')
-async def update_moto(id:str):
+@motos_router.put('/motos/{id}')
+async def update_moto(id:str, datos_actualizados):
     return actualizar_moto(id)
 
 
