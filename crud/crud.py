@@ -41,7 +41,7 @@ def see_motos():
         motos_list = [dict(zip(column_names, row)) for row in cursor]
         return {'motos list':motos_list}
     except Exception as e:
-        raise HTTPException(status_code=500, detail='error al conectar con el servidor')
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 # ver una moto por id
@@ -53,7 +53,7 @@ def find_moto(id: str):
         return dict(zip(column_names, cursor))
     except Exception as e:
         if cursor is None:
-            raise HTTPException(status_code=404, detail='Moto no encontrada')
+            raise HTTPException(status_code=404, detail=str(e))
 
 
 # borrar 
@@ -66,7 +66,7 @@ def borrar_moto(id:str):
         return {'delete' : resultado}
     except Exception as e:
         if result is None:
-            raise HTTPException(status_code=404, detail='no puedes borrarla si no existe')
+            raise HTTPException(status_code=404, detail=str(e))
 
 
 # actualizar moto
