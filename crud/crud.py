@@ -15,7 +15,7 @@ def fun_hola():
     try:
         return {'Welcome to the collection of motorcycles':'/docs in path for see documentation'}
     except Exception as e:
-        raise HTTPException(status_code=402, detail='error')
+        raise HTTPException(status_code=402, detail=str(e))
 
 
 # crear nueva moto
@@ -30,7 +30,7 @@ def nueva_moto(moto:Moto):
         conn.commit()
         return new_moto, cursor
     except Exception as e:
-        raise #HTTPException(status_code=444, detail='motobd no creada')
+        raise HTTPException(status_code=444, detail=str(e))
 
 
 # ver motos, get
@@ -70,17 +70,14 @@ def borrar_moto(id:str):
 
 
 # actualizar moto
-
 def actualizar_moto(id:str, datos_actualizados: dict):
     try:
         cursor = conn.execute(motosbd.select().where(motosbd.c.id==id))
         moto_existente = cursor.fetchone()
-        if moto_existente:
-            for clave, valor in datos_actualizados.items():
-                setattr(moto_existente, clave, valor)
-            conn.execute(motosbd.update().where(motosbd.c.id==id).values(datos_actualizados))    
+        if moto_existente:   
+            conn.execute(motosbd.update().where(motosbd.c.id == id).values(datos_actualizados))
             conn.commit()
         else:
             raise HTTPException(status_code=404, detail='la moto no existe')
     except Exception as e:
-        raise
+        raise HTTPException(status_code=500, detail=str(e))

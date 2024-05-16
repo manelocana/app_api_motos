@@ -1,9 +1,11 @@
 # en routes las peticiones http
 
 # importamos
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from schemas.motos import Moto
 from crud.crud import see_motos, find_moto, borrar_moto, fun_hola, nueva_moto, actualizar_moto
+from typing import Dict
+from fastapi.responses import JSONResponse
 
 
 
@@ -34,11 +36,15 @@ async def get_motillo(id: str):
 async def create_moto(moto:Moto):
     return nueva_moto(moto)
     
-   
+
 # modificar
 @motos_router.put('/motos/{id}')
-async def update_moto(id:str, datos_actualizados):
-    return actualizar_moto(id)
+async def update_moto(id:str, datos_actualizados:Dict[str,str]):
+    try:
+        actualizar_moto(id, datos_actualizados)
+        return {'message':'se actualizó correctamente'}
+    except HTTPException as e:
+        return JSONResponse(status_code=e.status_code, content={"detail": e.detail})    
 
 
 # borrar
