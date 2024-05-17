@@ -13,7 +13,7 @@ from fastapi.responses import JSONResponse
 motos_router = APIRouter()
 
 
-# home, hola
+# home, pedimos un get a /
 @motos_router.get('/')
 async def hola():
     return fun_hola()
@@ -25,19 +25,20 @@ async def get_motos():
     return see_motos()
 
 
-# busqueda de motobd por id
+# busqueda del objeto por parametro, en este caso id
 @motos_router.get('/motos/{id}')
 async def get_motillo(id: str):
     return find_moto(id)
     
 
-# insertar 
+# insertar objeto, usando la clase que hicimos en schemas
 @motos_router.post('/motos') 
 async def create_moto(moto:Moto):
     return nueva_moto(moto)
     
 
-# modificar
+# modificar, importamos Dict de typing, y le pasamos los datos en diccionario
+# probamos la peticion y si da error, returnamos un json con jsonresponse
 @motos_router.put('/motos/{id}')
 async def update_moto(id:str, datos_actualizados:Dict[str,str]):
     try:
@@ -47,7 +48,7 @@ async def update_moto(id:str, datos_actualizados:Dict[str,str]):
         return JSONResponse(status_code=e.status_code, content={"detail": e.detail})    
 
 
-# borrar
+# borrar, igual que el get por id, pero pasandole la funcion de borrar
 @motos_router.delete('/motos/{id}')
 async def delete_moto(id: str):
     return borrar_moto(id)

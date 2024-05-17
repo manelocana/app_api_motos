@@ -17,7 +17,8 @@ def fun_hola():
         raise HTTPException(status_code=402, detail=str(e))
 
 
-# crear nueva moto
+# crear nueva moto, creamos una instancia de la clase Moto, le pasamos los datos y hacemos un cursor donde queremos insertar, 
+# un commit para escribirlo en la bd, le pedimos que returne el nuevo objeto y el cursor
 def nueva_moto(moto:Moto):
     try:
         new_moto = {'marca':moto.marca, 

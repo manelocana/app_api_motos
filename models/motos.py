@@ -5,7 +5,8 @@ from config.db import meta, engine
 from sqlalchemy.sql.sqltypes import String
 
 
-# creamos la tabla 
+# diseñamos la tabla, usando meta (para luego crearla) e indicandole que queremos en cada columna
+# usamos primarykey para interactuar entre tablas, y nullable para que no haga falta parametro
 motosbd = Table('motos1', meta, Column('id', String, primary_key=True, nullable=True), 
               Column('marca', String(255)),
               Column('modelo', String(255)), 
