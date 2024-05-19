@@ -57,7 +57,8 @@ def find_moto(id: str):
             raise HTTPException(status_code=404, detail=str(e))
 
 
-### hay que corregirla....  borrar 
+# borrar objeto, conectamos a bd, le pedimos el nombre de colum y lo pasamos a dict, condicional para ver si se encuentra, 
+# si lo encuentra, le pasamos la funcion delete al cursor  por id
 def borrar_moto(id:str):
     try:
         result = conn.execute(motosbd.select().where(motosbd.c.id == id)).fetchone()
