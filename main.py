@@ -14,6 +14,7 @@ app = FastAPI(tittle="fastapi_motos",
               description="moto_collection", 
               version="1.0.1")
 
+# incluimos router, donde hago las peticiones
 app.include_router(motos_router)
 
 
