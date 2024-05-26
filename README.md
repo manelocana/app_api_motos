@@ -3,7 +3,9 @@ Projet API,
 Python comme langage,
 Fastapi pour la creation de l'API,
 MySQL comme base de données,
-Pour me connecter à MySQL, je vais utiliser SqlAlchemy
+
+Pour connecter à MySQL, je vais utiliser SqlAlchemy,
+mais je ferais la conexion en core, sans utiliser orm
 
 
 Ques'que je besoins pour tester le code? 
@@ -18,5 +20,5 @@ Je separé les modules en diferents dossiers, pour milleur estructurer le projet
 - config (conexion a la base de donnés)
 - models (definition de model/style de tables)
 - routers (demandes http)
-- crud (les fonctions) 
+- crud (les fonctions/métodes) 
 - schemas (gerer le tipus de donnés)
