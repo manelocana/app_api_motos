@@ -31,7 +31,8 @@ def nueva_moto(moto:Moto):
         return new_moto, cursor
     except Exception as e:
         raise HTTPException(status_code=444, detail=str(e))
-
+    finally:
+        conn.close()
 
 # ver motos, get: conexion en bd y que muestre todo con fetchall(), bucle para sacar los nombres de las columnas, 
 # unir y convertir en dict, cada linia que recorra el cursor 
@@ -43,7 +44,8 @@ def see_motos():
         return {'motos list':motos_list}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-
+    finally:
+        conn.close()
 
 # ver una moto por id, conexion a bd haciendo where en id, y fetchone que muestre solo una linea
 # sacamos la columna con un bucle
@@ -55,6 +57,8 @@ def find_moto(id: str):
     except Exception as e:
         if cursor is None:
             raise HTTPException(status_code=404, detail=str(e))
+    finally:
+        conn.close()
 
 
 # borrar objeto, conectamos a bd, le pedimos el nombre de colum y lo pasamos a dict, condicional para ver si se encuentra, 
@@ -73,6 +77,8 @@ def borrar_moto(id:str):
     except Exception as e:
         if result is None:
             raise HTTPException(status_code=404, detail=str(e))
+    finally:
+        conn.close()
 
 
 # actualizar moto, le pasamos la id y los parametros a actualizar en formato dict. where en bd por id, condicional para ver si la moto
@@ -88,3 +94,5 @@ def actualizar_moto(id:str, datos_actualizados: dict):
             raise HTTPException(status_code=404, detail='la moto no existe')
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+    finally:
+        conn.close()
