@@ -8,7 +8,7 @@
 from fastapi import FastAPI
 from routers.motos import motos_router
 from fastapi.staticfiles import StaticFiles
-
+from routers.users import users_router
 
 
 
@@ -19,6 +19,7 @@ app = FastAPI(tittle="fastapi_motos",
 
 # incluimos router, donde hago las peticiones
 app.include_router(motos_router)
+app.include_router(users_router)
 
 # añadimos la ruta staticfiles para las imagenes
 app.mount('/static', StaticFiles(directory='static') ,name='images')
