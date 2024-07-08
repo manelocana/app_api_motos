@@ -13,6 +13,16 @@ def new_user(user:User):
         conn.commit()
         return new_user, cursor
     except Exception as e:
-        raise HTTPException
+        raise HTTPException(detail=str(e))
+    finally:
+        conn.close()
     
+
+def see_users():
+    try:
+        return conn.execute(usersbd.select().fetchall())
+    except Exception as e:
+        raise HTTPException(detail=str(e))
+    finally:
+        conn.close()
 

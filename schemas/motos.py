@@ -15,5 +15,6 @@ class Moto(BaseModel):
     cilindrada: str
     año: str
     peso: str
-
-
+    potencia: str
+    imagen: str
+    

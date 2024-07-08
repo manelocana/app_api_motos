@@ -13,7 +13,10 @@ motosbd = Table('motos1', meta,
                 Column('modelo', String(255)), 
                 Column('cilindrada', String(255)), 
                 Column('año', String(255)),
-                Column('peso', String(255)))
+                Column('peso', String(255)),
+                Column('potencia', String(255)),
+                Column('imagen', String(255)))
+
 
 # una vez conectado a sql (usando engine), crea la tabla usando meta
 meta.create_all(engine)

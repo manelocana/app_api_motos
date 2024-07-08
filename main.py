@@ -22,5 +22,5 @@ app.include_router(motos_router)
 app.include_router(users_router)
 
 # añadimos la ruta staticfiles para las imagenes
-app.mount('/static', StaticFiles(directory='static') ,name='images')
+app.mount('/static', StaticFiles(directory='static') ,name='static')
 
