@@ -18,6 +18,10 @@ Ques'que je besoins pour tester le code?
 Où je puis voir la documentation?
 - Sur l'API, dans le path on ecris '/docs'
 
+  '''
+  a cara perro
+  '''
+
 
 Le module principal c'est 'main.py' je l'ai appart, pour demarrer le server
 Je separé les modules en diferents dossiers, pour milleur estructurer le projet (j'ai utilisé une estructure standard):
