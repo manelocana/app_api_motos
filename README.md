@@ -10,9 +10,9 @@ mais je ferais la conexion en core, sans utiliser orm
 
 Ques'que je besoins pour tester le code? 
 - Dans le module 'requirements.txt' on a tout a installer
-  '''
+  ``
     pip install -r requirements.txt
-  '''
+  ```
 
 Où je puis voir la documentation?
 - Sur l'API, dans le path on ecris '/docs'
